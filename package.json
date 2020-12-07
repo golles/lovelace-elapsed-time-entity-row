@@ -1,0 +1,25 @@
+{
+    "name": "elapsed-time-entity-row",
+    "private": true,
+    "version": "0.1.0",
+    "description": "",
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch --mode=development",
+        "update-card-tools": "npm uninstall card-tools && npm install thomasloven/lovelace-card-tools"
+    },
+    "repository": {
+        "type": "git",
+        "url": "github.com:golles/lovelace-elapsed-time-entity-row"
+    },
+    "keywords": [],
+    "author": "golles",
+    "license": "MIT",
+    "devDependencies": {
+        "webpack": "5.10.0",
+        "webpack-cli": "4.2.0"
+    },
+    "dependencies": {
+        "card-tools": "github:thomasloven/lovelace-card-tools"
+    }
+}
