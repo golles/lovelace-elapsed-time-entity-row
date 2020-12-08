@@ -1,7 +1,7 @@
 # elapsed-time-entity-row
 
 Display an elapsed time string from a entity state or attribute.
-![Example](https://user-images.githubusercontent.com/2211503/101376069-6b44c280-38b0-11eb-868f-f26f3a04be56.png)
+![Example](https://user-images.githubusercontent.com/2211503/101518945-dc54aa80-3982-11eb-9079-e3705d3d18d0.png)
 
 ## Installation
 Install `elapsed-time-entity-row.js` as a `module`.
@@ -13,8 +13,8 @@ resources:
 ```
 
 ## Usage example
-
-**Note:** This is *not* a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
+**Note:** This is *not* a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/) card.
+This will be localized for all supported languages in Home Assistant.
 
 ```yaml
 title: Elapsed time example
@@ -26,19 +26,31 @@ entities:
   - sensor.runtime
   - type: custom:elapsed-time-entity-row
     entity: sensor.runtime
-    hide: seconds
+    hideSeconds: 'true'
     icon: mdi:clock-outline
   - type: custom:elapsed-time-entity-row
     entity: fan.air_purifier
     attribute: use_time
     name: Tijd gebruikt
     icon: mdi:heart-pulse
-    hide: seconds
+    hideSeconds: 'true'
+```
+
+Sensors in this example
+```yaml
+sensor:
+  - platform: command_line
+    name: runtime
+    command: echo "$(($(date +%s) - $(date -d "$(head -n1 /config/home-assistant.log | cut -d' ' -f-2)" +%s)))"
+
+  - platform: command_line
+    name: host_uptime
+    command: 'sed "s/\..*//" /proc/uptime'
 ```
 
 ## Options
 | Name | Type | Required | Description |
 |:-----|:-----|:-----|:-----|
 | type | string | **yes** | Must be `custom:elapsed-time-entity-row` |
-| hide | string | No | only possible value here is `seconds` to hide the seconds from the string
+| hideSeconds | string | No | To hide the seconds: `true` anything else will be considerd as `false`
 | icon, name, secondary_info etc | string | No | Any of the standard options should work normally

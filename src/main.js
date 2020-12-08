@@ -3,11 +3,15 @@ import { LitElement, html } from "card-tools/src/lit-element";
 class ElapsedTimeEntityRow extends LitElement {
 
   setConfig(config) {
-    this.config = config;
+    const defaultConfig = {hideSeconds: 'false'};
+    this.config = {...defaultConfig, ...config};
   }
 
   _elapsedSecondsToString(number) {
     number = Number(number);
+    const hideSeconds = this.config.hideSeconds.toLowerCase() === 'true';
+    const andString = this.hass.localize('ui.common.and');
+
     const days = Math.floor(number / (3600 * 24));
     const hours = Math.floor(number % (3600 * 24) / 3600);
     const minutes = Math.floor(number % 3600 / 60);
@@ -16,12 +20,23 @@ class ElapsedTimeEntityRow extends LitElement {
     const stringArray = [];
     if (days > 0) stringArray.push(this.hass.localize('ui.components.relative_time.duration.day', 'count', days));
     if (hours > 0) stringArray.push(this.hass.localize('ui.components.relative_time.duration.hour', 'count', hours));
-    if (minutes > 0) stringArray.push(this.hass.localize('ui.components.relative_time.duration.minute', 'count', minutes));
-    if (this.config.hide !== 'seconds') {
+    if (minutes > 0 || (minutes == 0 && hideSeconds)) stringArray.push(this.hass.localize('ui.components.relative_time.duration.minute', 'count', minutes));
+    if (!hideSeconds) {
       stringArray.push(this.hass.localize('ui.components.relative_time.duration.second', 'count', seconds));
     }
 
-    return stringArray.join(', ');
+    let string = '';
+    stringArray.forEach(function(value, i, array) {
+      if (i === array.length - 2){ 
+        string += `${value} ${andString}`;
+      } else if (i === array.length - 1){ 
+        string += ` ${value}`;
+      } else {
+        string += `${value}, `;
+      }
+    });
+
+    return string;
   }
 
   render() {
