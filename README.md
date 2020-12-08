@@ -52,5 +52,5 @@ sensor:
 | Name | Type | Required | Description |
 |:-----|:-----|:-----|:-----|
 | type | string | **yes** | Must be `custom:elapsed-time-entity-row` |
-| hideSeconds | string | No | To hide the seconds: `true` anything else will be considerd as `false`
+| hideSeconds | string | No | To hide the seconds: `'true'` anything else will be considerd as `'false'`
 | icon, name, secondary_info etc | string | No | Any of the standard options should work normally
