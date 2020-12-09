@@ -1,7 +1,7 @@
 {
     "name": "elapsed-time-entity-row",
     "private": true,
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "",
     "scripts": {
         "build": "webpack",
